@@ -1,0 +1,53 @@
+{
+  "name": "cursomern-openbootcamp",
+  "version": "1.0.0",
+  "description": "Backend node + Express + TS + Swagger",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "test": "jest",
+    "serve:coverage": "npm run test && cd coverage/lcov-report && npx serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Adrian-Fernandez-Rosa/cursomern-openbootcamp.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "typescript",
+    "swagger",
+    "mongoose"
+  ],
+  "author": "@AdrianCodifica",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Adrian-Fernandez-Rosa/cursomern-openbootcamp/issues"
+  },
+  "homepage": "https://gitlab.com/Adrian-Fernandez-Rosa/cursomern-openbootcamp#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.15",
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.31.0",
+    "eslint-config-standard-with-typescript": "^26.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "serve": "^14.1.2",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  }
+}
