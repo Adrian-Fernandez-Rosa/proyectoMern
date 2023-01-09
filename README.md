@@ -24,11 +24,14 @@ Mongoose es una MongoDB herramienta de modelado de objetos diseñada para trabaj
 
 ** Scripts creados.
 
-> npx tsc: obtiene el código de typescript y genera una solución en js.
-> node dist/index.js: arrancar server.
-> concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\": Ejecutar concurrentemente 
+> "build": "npx tsc": obtiene el código de typescript y genera una solución en js.
+>  "start": "node dist/index.js": arrancar server.
+> "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"": Ejecutar concurrentemente 
   transcripción y iniciamos nodemon
-> npm run test && cd coverage/lcov-report && npx serve: Ejecutamos test, muestra coverage y lo corre en server
+>  "test": "jest",
+    "serve:coverage": "npm run test && cd coverage/lcov-report && npx serve":
+
+         Ejecutamos test, muestra coverage y lo corre en server
 
 ** Variables de entorno:
 > port: puerto de server. Proximamente también habrá variables como url, valores, cifrado.
