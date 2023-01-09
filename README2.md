@@ -148,3 +148,19 @@ an faltas retoques en el archivo jest.config.ts
 
 cuando pusheamos a git lab se corren los test configurados en el archivo .gitlab-ci.yml
 
+ya con una estructura básica de proyecto instalaremos y configuraremos cors
+
+```
+npm i cors helmet
+```
+helmet da más seguridad en determinadas peticiones
+también instalaremos el type
+
+```
+npm i -D @types/cors
+```
+
+Instalando mongoose 
+```
+npm i mongoose
+```

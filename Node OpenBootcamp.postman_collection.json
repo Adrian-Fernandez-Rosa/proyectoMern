@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "912fd862-9a49-4070-9518-94a5d86f0e86",
+		"name": "Node OpenBootcamp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hola con param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/hello?name=adri",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"hello"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "adri"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hola sin param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/hello",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"hello"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "adri",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adios sin param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/goodbye",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"goodbye"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "adios con param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/goodbye?name=codificador",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"goodbye"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "codificador"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
