@@ -37,4 +37,9 @@ server.get('/', (req: Request, res: Response) => {
     res.redirect('/api');
 })
 
+// Static server
+// Ahora, puede cargar los archivos que hay en el directorio public desde el prefijo de vía de acceso /static.
+// no estoy seguro del comentario anterior. verificar https://expressjs.com/es/starter/static-files.html
+server.use(express.static('public'));
+
 export default server;

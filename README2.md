@@ -164,3 +164,130 @@ Instalando mongoose
 ```
 npm i mongoose
 ```
+
+
+** como es el camino de un get de un controlador en código
+
+1. hacer un tipo si devolvemos una respuesta (se encuentra en src/controller/types/index.t)
+
+    ```
+    export type DateResponse = {
+    message: string,
+    Date: Date
+    }
+    ```
+
+2. Codear la Interfaz del controller.
+En este caso y a diferencia de java hay 2 interface en un mismo archivo (src/controller/interfaces/index.ts)
+
+```
+export interface IGoodbyeController {
+    getMessage(name?:string): Promise<DateResponse>;
+}
+```
+
+3. Codear el controlador (src/controller/GoodbyeController.ts)
+
+```
+import { DateResponse } from "./types";
+import { IGoodbyeController } from "./interfaces";
+import { LogSuccess } from "../utils/logger";
+
+export class GoodbyeController implements IGoodbyeController {
+    
+    public async getMessage(name?: string | undefined): Promise<DateResponse> {
+        LogSuccess('[/api/goodbye] Get Request');
+        return {
+            message: `Goodbye, ${name || "World!"}`,
+            Date: new Date()
+        }
+    }
+    
+}
+```
+
+4. Codear routes (src/routes/GoodbyeRouter.ts)
+
+```
+import express, { Request, Response} from "express";
+import { GoodbyeController } from "../controller/GoodbyeController";
+import { LogInfo } from "../utils/logger";
+
+let goodbyeRouter = express.Router();
+
+
+// GET http://localhost:800/api/goodbye?name=Adrian
+goodbyeRouter.route('/')
+    .get(async (req: Request, res: Response) => {
+        // Obtain a Query Param 
+        let name: any = req?.query?.name;
+        LogInfo(`Query param: ${name}`);
+
+        // Controller Instance to execute method
+        const controller: GoodbyeController = new GoodbyeController();
+        // Obtain Response
+        const response = await controller.getMessage(name);
+        // Send to the client response
+        return res.send(response);
+    });
+
+    export default goodbyeRouter;
+```
+
+5 agregar en src/routes/index.ts
+
+```
+server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye --> Goodbye Router
+```
+
+<br>
+<br>
+<br>
+    ** WEBPACK
+
+ahora configuraremos web pack para que quede un código más ofuscado y ligero y con menos archivos luego de hacer la transpilación.
+
+Crear archivo webpack.config.js en la raiz del proyecto.
+
+necesitaremos instalar
+```
+npm i -D ts-loader
+```
+
+se ha creado el archivo webpack.config.js
+
+// TODO: poner directorio
+
+luego de codear la configuración de webpack haremos scripts en package json
+
+"prueba:webpack":"npx webpack",
+
+este script es de dev.
+
+por lo tanto ahora haremos modificaciones, sobre el para que sea de producción
+
+```
+"prueba:webpack":"npx webpack --mode production"
+```
+
+Luego de chequear que el script de prueba funcione asi debería quedar nuestros scripts
+
+```
+"scripts": {
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "test": "jest",
+    "serve:coverage": "npm run test && cd coverage/lcov-report && npx serve",
+    "build": "npx webpack --mode development",
+    "start": "node dist/index.js",
+    "build:prod": "npx webpack --mode production"
+  },
+```
+
+Ahora instalaremos TSOA que sera uno de los que nos ayudara a documentar swagger
+```
+npm i -D @types/swagger-jsdoc @types/swagger-ui-express
+npm i --save swagger-jsdoc swagger-ui-express
+npm i tsoa //que sirve para utilizar swagger con typescript
+```
+
+generamos otro archivo de configuración en la raiz llamado tsoa.json

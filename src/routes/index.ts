@@ -24,7 +24,7 @@ rootRouter.get('/', (req: Request, res: Response) => {
 // Redirections to Routers & Controllers
 server.use('/', rootRouter); // http://localhost:8000/api
 server.use('/hello', helloRouter) // http://localhost:8000/api/hello --> Hello Router
-server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/hello --> Hello Router
+server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye --> Goodbye Router
 // param 1: route, param 2: manager
 // Add more routes to the app 
 
