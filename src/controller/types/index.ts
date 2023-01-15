@@ -15,5 +15,5 @@ export type ErrorResponse = {
 
 export type DateResponse = {
     message: string,
-    Date: Date
+    date: Date
 }

@@ -6,5 +6,5 @@ export interface IHelloController {
 }
 
 export interface IGoodbyeController {
-    getMessage(name?:string): Promise<DateResponse>;
+    getMessage(name?:string, date?:Date): Promise<DateResponse>;
 }

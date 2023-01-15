@@ -54,7 +54,7 @@ también generaremos el tsconfig.json con:
 npx tsc --init
 
 descomentamos 
-```
+```typescript
 "experimentalDecorator": true,
 "emitDecoratorMetadata": true,
 "baseUrl": "./", 
@@ -75,7 +75,7 @@ npm i -D concurrently (Ejecuta comandos de manera concurrente)
 
 crearemos otros script en package json
 
-```
+```json
 "build": "npx tsc",
 "start": "node dist/index.js",
 "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
@@ -98,7 +98,7 @@ Además de crear los bundles, Webpack es capaz de realizar diversas tareas neces
 
 Ahora instalaremos 
 
-```
+``` 
     npm i -D eslint jest ts-jest @types/jest supertest
 ```
 
@@ -140,7 +140,7 @@ npm i -D serve
 
 agregamos script en package.json
 
-```
+```typescript
 "serve:coverage": "npm run test && cd coverage/lcov-report && npx serve"
 ```
 Lo que hace es hacer es concurrentemente ejecutar test y servirlo.
@@ -170,7 +170,7 @@ npm i mongoose
 
 1. hacer un tipo si devolvemos una respuesta (se encuentra en src/controller/types/index.t)
 
-    ```
+    ```typescript
     export type DateResponse = {
     message: string,
     Date: Date
@@ -180,7 +180,7 @@ npm i mongoose
 2. Codear la Interfaz del controller.
 En este caso y a diferencia de java hay 2 interface en un mismo archivo (src/controller/interfaces/index.ts)
 
-```
+```typescript
 export interface IGoodbyeController {
     getMessage(name?:string): Promise<DateResponse>;
 }
@@ -188,7 +188,7 @@ export interface IGoodbyeController {
 
 3. Codear el controlador (src/controller/GoodbyeController.ts)
 
-```
+```typescript
 import { DateResponse } from "./types";
 import { IGoodbyeController } from "./interfaces";
 import { LogSuccess } from "../utils/logger";
@@ -208,7 +208,7 @@ export class GoodbyeController implements IGoodbyeController {
 
 4. Codear routes (src/routes/GoodbyeRouter.ts)
 
-```
+```typescript
 import express, { Request, Response} from "express";
 import { GoodbyeController } from "../controller/GoodbyeController";
 import { LogInfo } from "../utils/logger";
@@ -236,7 +236,7 @@ goodbyeRouter.route('/')
 
 5 agregar en src/routes/index.ts
 
-```
+```typescript
 server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye --> Goodbye Router
 ```
 
@@ -266,13 +266,13 @@ este script es de dev.
 
 por lo tanto ahora haremos modificaciones, sobre el para que sea de producción
 
-```
+```typescript
 "prueba:webpack":"npx webpack --mode production"
 ```
 
 Luego de chequear que el script de prueba funcione asi debería quedar nuestros scripts
 
-```
+```typescript
 "scripts": {
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "test": "jest",
@@ -284,10 +284,23 @@ Luego de chequear que el script de prueba funcione asi debería quedar nuestros 
 ```
 
 Ahora instalaremos TSOA que sera uno de los que nos ayudara a documentar swagger
-```
+```typescript
 npm i -D @types/swagger-jsdoc @types/swagger-ui-express
 npm i --save swagger-jsdoc swagger-ui-express
 npm i tsoa //que sirve para utilizar swagger con typescript
 ```
 
 generamos otro archivo de configuración en la raiz llamado tsoa.json
+
+en el archivo tsconfig.json se descomento la linea
+
+```javascript
+     "typeRoots": ["./node_modules/@types"], 
+```
+
+modificando nuestro script dev
+```javascript
+ "dev": "concurrently \"npx tsc --watch\" \"npm run swagger\" \"nodemon -q dist/index.js\"",
+ ```
+
+
