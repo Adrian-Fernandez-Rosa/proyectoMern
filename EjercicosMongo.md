@@ -54,3 +54,104 @@ Borra todos los contactos que tengan como estado (state) Florida.
 db.CopiaContacts.deleteMany({"location.state": "Florida"})
 ```
 
+** Ejercicios mongo parte B. 
+
+Muestra las primeras 5 ciudades que empiecen por A ordenadas de manera ascendente, las soluciones deben ser únicas.
+
+```json
+db.Contacts.aggregate([
+    {
+        $match: { "location.city":  /^A/    }
+    }, 
+    {
+        $project: { _id: 0,"location.city":1}
+        },
+       
+        { $group: {_id: "$location.city" }},
+        { $sort: {_id: 1}},
+         { $limit: 5}
+])
+```
+
+
+Crea una colección a parte, que solo contenga a los contactos de Francia (France) y que tengan entre 18 y 50 años. Usa una agregación para ello.
+
+```json
+
+db.Contacts.aggregate([
+    {
+        $match: { "location.country": "France", "dob.age": {$gte:18},"dob.age": {$lt:50}  }
+        },
+        {
+         $out: "franceses"
+        }
+])
+
+
+
+```
+
+Añade un número favorito a cada contacto, luego crea un bucket agrupando por número favorito que separe en 5 segmentos.
+
+```javascript
+
+db.Contacts.updateMany({}, {$set: { favoriteNumber: Math.floor(Math.random() *50000)}} )
+
+db.Contacts.find().forEach(
+        function(contacto) { 
+        db.Contacts.update({_id: contacto._id}, {$set: {favoriteNumber: Math.floor(Math.random() *50000)} })
+        }
+)
+
+db.Contacts.aggregate([ 
+    {
+    $bucketAuto: {
+        groupBy: '$favoriteNumber',
+        buckets: 6,
+        output: {
+            numpersonas: { $sum: 1}
+        }
+    }
+    
+    }
+    ])
+
+```
+
+En la colección de Contatcs, haz una proyección la cual tiene que devolver solo el name y username del contacto.
+
+```javascript
+db.Contacts.aggregate([
+        { $project: {_id:0 ,nombre: 1, "login.username": 1 } }
+
+])
+```
+
+
+
+Haz una proyección convirtiendo la fecha (date) a un formato DD-MM-AAAA, la nueva variable será fechaNacimiento
+
+```javascript
+db.Contacts.aggregate([
+  {
+    $project: {
+      _id: 0,
+      nombreCompleto: {
+        $concat: [
+          '$name.first', ' ','$name.last'
+        ]
+      },
+      fechaNacimiento: {
+        $dateToString: {
+          format: '%d-%m-%Y',
+          date: {
+            $dateFromString: {
+              dateString: '$dob.date'
+            }
+          }
+        }
+      }
+    }
+  }
+])
+```
