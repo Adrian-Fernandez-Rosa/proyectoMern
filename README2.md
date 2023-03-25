@@ -291,3 +291,9 @@ npm i tsoa //que sirve para utilizar swagger con typescript
 ```
 
 generamos otro archivo de configuración en la raiz llamado tsoa.json
+
+en el archivo tsconfig.json se descomento la linea
+
+```
+     "typeRoots": ["./node_modules/@types"], 
+```
