@@ -11,6 +11,6 @@ export const userEntity = () => {
         }
     )
 
-    return mongoose.model('Users', userSchema);
-
+    return mongoose.models.Users || mongoose.model('Users', userSchema);
+        //En caso de que exista un modelo User utilizaremos ese, sino lo crea
 }

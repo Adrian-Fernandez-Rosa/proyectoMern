@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { userEntity } from "./User.entity";
 
 
 export const KataEntity = () => {
@@ -9,11 +8,12 @@ export const KataEntity = () => {
             Name: String,
             Description: String,
             Level: Number,
-            User: userEntity,
-            Date: Date,
-            Valoration: Number,
-            Chances: Number
+            intents: Number,
+            stars: Number,
+            creator: String, // id of user
+            solution: String,
+            participants: []
         }
     )
-    return mongoose.model('Kata', kataSchema )
+    return mongoose.models.Kata || mongoose.model('Kata', kataSchema);
 }
