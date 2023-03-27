@@ -8,6 +8,8 @@ import helloRouter from './HelloRouter';
 import goodbyeRouter from './GoodbyeRouter';
 import { LogInfo } from '../utils/logger';
 import userRouter from './UserRouter';
+import kataRouter from './KataRouter';
+
 
 // Server instance
 let server = express(); //acceder a determinadas rutas y que rutas seran redirigidas hacia un lado o otro
@@ -25,8 +27,9 @@ rootRouter.get('/', (req: Request, res: Response) => {
 // Redirections to Routers & Controllers
 server.use('/', rootRouter); // http://localhost:8000/api
 server.use('/hello', helloRouter) // http://localhost:8000/api/hello --> Hello Router
-server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye --> Goodbye Router
+server.use('/goodbye', goodbyeRouter) // http://localhost:8000/api/goodbye --> GoodbyeRouter
 server.use('/users', userRouter) // http://localhost:8000/api/users --> UserRouter
+server.use('/kata', kataRouter) // http://localhost:8000/api/kata --> KataRouter
 // param 1: route, param 2: manager
 // Add more routes to the app 
 

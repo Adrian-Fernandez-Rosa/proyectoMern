@@ -20,8 +20,7 @@ userRouter.route('/')
         // Obtain Response
         const response: any = await controller.getUsers(id); //modificamos agregando id
         // Send to the client the response
-        return res.send(response);
-
+        return res.status(200).send(response);
 
     })
     .delete(async (req: Request, res: Response) => {
@@ -33,7 +32,7 @@ userRouter.route('/')
         // Obtain Response
         const response: any = await controller.deleteUsers(id); //modificamos agregando id
         // Send to the client the response
-        return res.send(response);
+        return res.status(response.status).send(response);
 
 
     })
@@ -56,7 +55,7 @@ userRouter.route('/')
         // Obtain Response
         const response: any = await controller.createUser(user);
         // Send to the client the response
-        return res.send(response);
+        return res.status(201).send(response);
     })
     .put(async (req: Request, res: Response) => {
         let id: any = req?.query?.id;
@@ -77,8 +76,15 @@ userRouter.route('/')
         // Obtain Response
         const response: any = await controller.updateUser(id, user);
 
-        return res.send(response);
+        return res.status(response.status).send(response);
     }); //también se puese continuar con .post o .delete para borrar algo
 
-// Export Hello Router
+// Export Users Router
 export default userRouter;
+
+/**
+ * Get Document => 200 OK
+ * Creation Documents => 201 OK
+ * Deletion of Documents => 200 (entity) / 204 (No return)
+ * Update of Documents => 200 (entity) / 204 (No return)
+ */

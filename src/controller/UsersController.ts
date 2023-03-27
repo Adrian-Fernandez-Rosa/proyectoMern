@@ -48,12 +48,14 @@ export class UserController implements IUserController {
 
             await deleteUserByID(id).then((r) => {
                 response = {
+                    status: 204, 
                     message: `User with id ${id} deleted successfuly`
                 }
-            })
-        }else {
-            LogWarning('[/api/users] Delete User Request WITHOUT ID')
+            });
+        } else {
+            LogWarning('[/api/users] Delete User Request WITHOUT ID');
             response = {
+                status: 400,
                 message: 'Please, provide an ID to remove from database'
             }
         }
@@ -85,16 +87,17 @@ export class UserController implements IUserController {
 
             await updateUserByID(id, user).then((r) => {
                 response = {
+                    status: 204,
                     message: `User with id ${id} updated successfuly`
                 }
             })
-        }else {
+        } else {
             LogWarning('[/api/users] Update User Request WITHOUT ID')
             response = {
+                status: 400,
                 message: 'Please, provide an ID to update an existing user'
             }
         }
-
         return response;  
     }
 

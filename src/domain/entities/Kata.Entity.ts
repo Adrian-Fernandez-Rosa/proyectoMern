@@ -5,14 +5,15 @@ export const KataEntity = () => {
 
     let kataSchema = new mongoose.Schema(
         {
-            Name: String,
-            Description: String,
-            Level: Number,
-            intents: Number,
-            stars: Number,
+            name: String,
+            description: String,
+            level: Number, // Debes poder filtrar las Katas disponibles por nivel de dificultad
             creator: String, // id of user
-            solution: String,
-            participants: []
+            date: Date,
+            stars: Number, 
+            intents: Number, // Debes poder encontrar las Katas ordenadas por intentos
+            numberOfReviews: Number,
+            averageStars: Number // Debes poder valorar una Kata con una nueva nota y debe almacenarse la media
         }
     )
     return mongoose.models.Kata || mongoose.model('Kata', kataSchema);

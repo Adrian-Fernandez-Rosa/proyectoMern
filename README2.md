@@ -756,7 +756,7 @@ export const createUser = async (user: any): Promise<any | undefined> => {//debe
         let name: any = req?.query?.name;
         let age: any = req?.query?.age;
         let email: any = req?.query?.email;
-        LogInfo(`Query Param: ${id}, ${name}, ${age}, ${email}`)
+        LogInfo(`Query Param: ${id}, ${name}, ${age}, ${email}`);
         let user = {
             name: name,
             email: email,
@@ -773,3 +773,98 @@ export const createUser = async (user: any): Promise<any | undefined> => {//debe
 // problemas con swagger
 quitamos swagger de dev
 \"npm run swagger\"
+
+** Ejercicio.
+
+Crear un nuevo modelo y endpoints para gestionar peticiones CRUD para la colección de Katas. Además:
+
+Debes poder filtrar las Katas disponibles por nivel de dificultad
+
+Debes poder obtener las 5 Katas más recientes
+
+Debes poder listar las Katas ordenadas de mejor valoradas a menos valoradas
+
+Debes poder valorar una Kata con una nueva nota y debe almacenarse la media
+
+Por lo que el modelo de Kata deberá tener un valor que será número de valoraciones de usuarios, para así obtener la media
+
+Debes poder encontrar las Katas ordenadas por intentos-
+
+
+** Validación de modelos, Autenticación y Autorización con JWT.
+
+Para no tener que hacer cosas tan bizarras como la siguiente (routeKata)
+
+```typescript
+
+.post(async (req: Request, res: Response) => {
+
+        let name: any = req?.query?.name;
+        let description: any = req?.query?.description;
+        let level: any = req?.query?.level;
+        let creator: any = req?.query?.creator; // id of creator user
+        let date: Date = new Date();
+        let stars: any = req?.query?.stars;
+        let intents: any = req?.query?.intents;
+        let numberOfReviews: Number = 0;
+        let averageStars: Number= 0;
+      //  let idParticipants= req?.query?.participants;
+     
+      const controller: KatasController = new KatasController();
+
+        let kata = {
+            name: name,
+            description: description,
+            level: level,
+            creator: creator,
+            date: date,
+            stars: stars,
+            intents: intents,
+            numberOfReviews: numberOfReviews,
+            averageStars: averageStars
+        }
+
+        const response: any = await controller.createKata(kata);
+
+        return res.status(201).send(response);
+    })
+```
+
+    hay que trabajar con la interfaz de esqueba sobre user.entity.ts por ejemplo
+
+    entonces dentro de domain creammos la carpeta de interfaces.
+    podremos usar las interfaces de nuestros entitis por ejemplo
+    en los orm.
+
+domain/interfaces/IUser.interface.ts
+
+    ```typescript
+    export interface IUser {
+    name: string,
+    email: string,
+    age: number
+    }
+    ```
+
+A la entidad user la modificamos y queda de la siguiente manera:
+
+```typescript
+
+import mongoose from "mongoose";
+import { IUser } from "../interfaces/IUser.interface";
+
+
+export const userEntity = () => {
+    let userSchema = new mongoose.Schema<IUser>(
+    {
+        name: { type: String, required: true},
+        email: { type: String, required: true},
+        age: { type: Number, required: true}
+    }
+        
+    )
+
+    return mongoose.models.Users || mongoose.model<IUser>('Users', userSchema);
+```
+
+// en la clase de hoy quedamos pendiente de probarlo código de zoom: 1:19
